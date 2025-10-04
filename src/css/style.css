@@ -1,6 +1,93 @@
-/* Basic shared styles */
-body { font-family: system-ui, sans-serif; margin: 2rem; }
-nav a { margin-right: .75rem; }
-ul { list-style: disc; padding-left: 1.5rem; }
-form { margin-top: 1rem; display: flex; gap: .5rem; align-items: center; }
-pre { background:#111; color:#0f0; padding:1rem; }
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  color: #2a2a2a;
+  background-color: #fafafa;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Gallery styles */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px 24px;
+  list-style: none;
+  padding: 32px 32px 40px;
+  margin: 0 auto;
+  max-width: 1400px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 18px -4px rgba(0,0,0,0.08), 0 6px 32px -6px rgba(0,0,0,0.06);
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f0f0f0;
+  transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s;
+}
+
+.gallery-link { display:block; height:100%; }
+
+.gallery-image {
+  width: 100%;
+  aspect-ratio: 4/3; /* keeps uniform tiles */
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.gallery-item:hover .gallery-image { transform: scale(1.06); }
+
+/* Subtle focus state for accessibility */
+.gallery-link:focus-visible .gallery-image {
+  outline: 3px solid #646cff;
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .gallery { padding: 24px 20px 32px; gap: 20px 18px; }
+}
+
+@media (max-width: 480px) {
+  .gallery { grid-template-columns: 1fr 1fr; gap: 14px; }
+  @supports (width: clamp(0px, 1vw, 1px)) { /* narrow phones fallback */
+    .gallery { grid-template-columns: 1fr; }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+}
+
+/* SimpleLightbox customisation */
+.sl-overlay { background: rgba(30,32,41,.94) !important; }
+.sl-wrapper { backdrop-filter: blur(3px); }
+.sl-wrapper .sl-counter { font-size: 12px; letter-spacing: .5px; opacity:.85; }
+.sl-wrapper .sl-close { top:14px; right:18px; }
+.sl-wrapper .sl-navigation button { width:54px; height:54px; }
+.sl-wrapper .sl-navigation button:hover { background: rgba(255,255,255,.08); }
+.sl-wrapper .sl-caption { font-size:14px; line-height:1.4; padding:14px 18px 22px; }
