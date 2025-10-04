@@ -1,0 +1,6 @@
+/* Basic shared styles */
+body { font-family: system-ui, sans-serif; margin: 2rem; }
+nav a { margin-right: .75rem; }
+ul { list-style: disc; padding-left: 1.5rem; }
+form { margin-top: 1rem; display: flex; gap: .5rem; align-items: center; }
+pre { background:#111; color:#0f0; padding:1rem; }
