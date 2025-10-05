@@ -9,10 +9,12 @@ export default defineConfig((command) => {
     define: {
       global: 'window',
     },
-    base: './goit-advancedjs-hw-01/',
+    base: '/goit-advancedjs-hw-01/',
     root: 'src',
     build: {
       sourcemap: true,
+      outDir: '../dist',
+      emptyOutDir: true,
       rollupOptions: {
         input: glob.sync('./src/public/*.html'),
         output: {
@@ -33,8 +35,6 @@ export default defineConfig((command) => {
             }
             return 'assets/[name]-[hash][extname]';
           },
-          outDir: '../dist',
-          emptyOutDir: true,
         },
       },
     },
