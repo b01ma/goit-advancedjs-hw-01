@@ -16,7 +16,7 @@ export default defineConfig((command) => {
       outDir: '../dist',
       emptyOutDir: true,
       rollupOptions: {
-        input: glob.sync('./src/public/*.html'),
+        input: glob.sync('./src/*.html'),
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
