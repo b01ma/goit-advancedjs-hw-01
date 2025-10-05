@@ -9,6 +9,7 @@ export default defineConfig((command) => {
     define: {
       global: 'window',
     },
+    base: './goit-advancedjs-hw-01/',
     root: 'src',
     build: {
       sourcemap: true,
