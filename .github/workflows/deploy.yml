@@ -1,0 +1,48 @@
+name: Deploy Vite app to GitHub Pages
+
+on:
+  push: # trigger when pushing code
+    branches: ['master'] # only if it's pushed to "master" branch
+
+# Permissions required for GitHub Pages
+permissions:
+  contents: read # can read repo contents
+  pages: write # can write/deploy to GitHub Pages
+  id-token: write # for authentication
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Action runs on Ubuntu VM in the cloud
+    steps:
+      # Step 1: Checkout code (pull your repo into the Action VM)
+      - uses: actions/checkout@v4
+
+      # Step 2: Setup Node environment (like installing Node on a fresh machine)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Vite works great with Node 18/20
+          cache: npm # caches node_modules between builds (faster)
+
+      # Step 3: Install dependencies
+      - run: npm ci # clean install from package-lock.json
+
+      # Step 4: Build the project
+      - run: npm run build # runs vite build → outputs to ./dist
+
+      # Step 5: Upload build artifacts for the next job
+      - name: Upload production-ready build files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist # take everything from dist/ and prepare for deploy
+
+  deploy:
+    needs: build # wait until "build" job finishes
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
