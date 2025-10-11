@@ -79,3 +79,5 @@ export default function renderGallery(gallerySelector) {
       .join('');
   }
 }
+
+renderGallery(document.querySelector('.gallery'));

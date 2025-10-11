@@ -65,3 +65,5 @@ export default function renderForm(formEl) {
     }
   }
 }
+
+renderForm(document.querySelector('.feedback-form'));
