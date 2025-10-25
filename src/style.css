@@ -1,1 +1,168 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  color: #2a2a2a;
+  background-color: #fafafa;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+h2, h3, h4, h5, h6 {
+  color: #444;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+/* Gallery styles */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px 24px;
+  list-style: none;
+  padding: 32px 32px 40px;
+  margin: 0 auto;
+  max-width: 1400px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 18px -4px rgba(0,0,0,0.08), 0 6px 32px -6px rgba(0,0,0,0.06);
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f0f0f0;
+  transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s;
+}
+
+.gallery-link { display:block; height:100%; }
+
+.gallery-image {
+  width: 100%;
+  aspect-ratio: 4/3; /* keeps uniform tiles */
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.gallery-item:hover .gallery-image { transform: scale(1.06); }
+
+/* Subtle focus state for accessibility */
+.gallery-link:focus-visible .gallery-image {
+  outline: 3px solid #646cff;
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .gallery { padding: 24px 20px 32px; gap: 20px 18px; }
+}
+
+@media (max-width: 480px) {
+  .gallery { grid-template-columns: 1fr 1fr; gap: 14px; }
+  @supports (width: clamp(0px, 1vw, 1px)) { /* narrow phones fallback */
+    .gallery { grid-template-columns: 1fr; }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+}
+
+/* SimpleLightbox customisation */
+.sl-overlay { background: rgba(30,32,41,.94) !important; }
+.sl-wrapper { backdrop-filter: blur(3px); }
+.sl-wrapper .sl-counter { font-size: 12px; letter-spacing: .5px; opacity:.85; }
+.sl-wrapper .sl-close { top:14px; right:18px; }
+.sl-wrapper .sl-navigation button { width:54px; height:54px; }
+.sl-wrapper .sl-navigation button:hover { background: rgba(255,255,255,.08); }
+.sl-wrapper .sl-caption { font-size:14px; line-height:1.4; padding:14px 18px 22px; }
+
+/* =============================
+   Feedback Form Styles
+   ============================= */
+.feedback-form {
+  max-width: 560px;
+  margin: 32px auto 64px;
+  padding: 40px 48px 48px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px -4px rgba(0,0,0,.06), 0 8px 32px -8px rgba(0,0,0,.05);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.feedback-form label { font-size:15px; letter-spacing:.5px; font-weight:600; color:#222; display:flex; flex-direction:column; gap:10px; }
+
+.feedback-form input,
+.feedback-form textarea {
+  font: 500 15px/1.4 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  padding: 14px 16px 13px;
+  border: 1.5px solid #cfd3d9;
+  border-radius: 10px;
+  background:#fff;
+  color:#222;
+  transition: border-color .25s, box-shadow .25s, background .25s;
+  outline: none;
+}
+
+.feedback-form input::placeholder,
+.feedback-form textarea::placeholder { color:#9aa2af; font-weight:400; }
+
+.feedback-form input:hover,
+.feedback-form textarea:hover { border-color:#9aa2af; }
+
+.feedback-form input:focus,
+.feedback-form textarea:focus { border-color:#6366f1; box-shadow:0 0 0 3px rgba(99,102,241,.25); }
+
+.feedback-form textarea { resize: vertical; min-height: 160px; }
+
+.feedback-form button {
+  margin-top: 8px;
+  background:#4f6afc;
+  color:#fff;
+  padding:14px 32px 15px;
+  font:600 16px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  border:none;
+  border-radius: 14px;
+  cursor:pointer;
+  letter-spacing:.5px;
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px;
+  transition: background .25s, transform .25s, box-shadow .25s;
+  box-shadow:0 4px 14px -4px rgba(79,106,252,.5);
+}
+.feedback-form button:hover { background:#4661f5; }
+.feedback-form button:active { transform:translateY(1px); }
+.feedback-form button:focus-visible { outline:3px solid #3947ff; outline-offset:3px; }
+
+/* Small screen adjustments */
+@media (max-width: 640px) {
+  .feedback-form { padding: 32px 28px 40px; gap:22px; }
+  .feedback-form button { width:100%; }
+}
+
+/* Helper class for subtle page heading difference on form page */
+.page-form h2 { margin-top:24px; font-size:28px; }
