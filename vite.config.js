@@ -4,17 +4,14 @@ import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
 
-export default defineConfig((command) => {
+export default defineConfig(({ command }) => {
   return {
     define: {
-      global: 'window',
+      [command === 'serve' ? 'global' : '_global']: {},
     },
-    base: '/goit-advancedjs-hw-01/',
     root: 'src',
     build: {
       sourcemap: true,
-      outDir: '../dist',
-      emptyOutDir: true,
       rollupOptions: {
         input: glob.sync('./src/*.html'),
         output: {
@@ -23,13 +20,13 @@ export default defineConfig((command) => {
               return 'vendor';
             }
           },
-          entryFileNames: (chunkInfo) => {
+          entryFileNames: chunkInfo => {
             if (chunkInfo.name === 'commonHelpers') {
               return 'commonHelpers.js';
             }
             return '[name].js';
           },
-          assetFileNames: (assetInfo) => {
+          assetFileNames: assetInfo => {
             if (assetInfo.name && assetInfo.name.endsWith('.html')) {
               return '[name].[ext]';
             }
@@ -37,6 +34,8 @@ export default defineConfig((command) => {
           },
         },
       },
+      outDir: '../dist',
+      emptyOutDir: true,
     },
     plugins: [
       injectHTML(),
@@ -45,12 +44,5 @@ export default defineConfig((command) => {
         sort: 'mobile-first',
       }),
     ],
-    css: {
-      postcss: [
-        {
-          plugins: [SortCss({ sort: 'mobile-first' })],
-        },
-      ],
-    },
   };
 });
